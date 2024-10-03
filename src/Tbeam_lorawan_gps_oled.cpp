@@ -26,32 +26,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define  LMIC_DEBUG_LEVEL = 1 
 #define CFG_au915
 
-//
-// For normal use, we require that you edit the sketch to replace FILLMEIN
-// with values assigned by the TTN console. However, for regression tests,
-// we want to be able to compile these scripts. The regression tests define
-// COMPILE_REGRESSION_TEST, and in that case we define FILLMEIN to a non-
-// working but innocuous value.
-//
-#ifdef COMPILE_REGRESSION_TEST
-# define FILLMEIN 0
-#else
-# warning "You must replace the values marked FILLMEIN with real values from the TTN control panel!"
-# define FILLMEIN (#dont edit this, edit the lines that use FILLMEIN)
-#endif
-
-// LoRaWAN NwkSKey, network session key
-// This should be in big-endian (aka msb).
-static const PROGMEM u1_t NWKSKEY[16] = {0xA7, 0xC7, 0xA6, 0x12, 0xF6, 0x5E, 0xAA, 0x2E, 0xB2, 0xAC, 0xCA, 0xB4, 0x5D, 0xAA, 0xFF, 0x53 };
-
-// LoRaWAN AppSKey, application session key
-// This should also be in big-endian (aka msb).
-static const u1_t PROGMEM APPSKEY[16] = {0xF6, 0x2E, 0x74, 0x7D, 0x41, 0x60, 0x5B, 0x8B, 0x28, 0x88, 0x09, 0xA3, 0x3C, 0x5B, 0x58, 0x26};
-
-// LoRaWAN end-device address (DevAddr)
-// See http://thethingsnetwork.org/wiki/AddressSpace
-// The library converts the address to network byte order as needed, so this should be in big-endian (aka msb) too.
-static const u4_t DEVADDR = 0x260D2485 ; // <-- Change this address for every node!
+#include <secrets.h>
 
 
 // These callbacks are only used in over-the-air activation, so they are
